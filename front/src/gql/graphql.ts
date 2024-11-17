@@ -8956,6 +8956,10 @@ export enum UserRoleEnum {
   /** User role with specific capabilities */
   Editor = 'EDITOR',
   /** User role with specific capabilities */
+  SeoEditor = 'SEO_EDITOR',
+  /** User role with specific capabilities */
+  SeoManager = 'SEO_MANAGER',
+  /** User role with specific capabilities */
   Subscriber = 'SUBSCRIBER'
 }
 

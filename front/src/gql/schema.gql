@@ -12622,6 +12622,12 @@ enum UserRoleEnum {
   EDITOR
 
   """User role with specific capabilities"""
+  SEO_EDITOR
+
+  """User role with specific capabilities"""
+  SEO_MANAGER
+
+  """User role with specific capabilities"""
   SUBSCRIBER
 }
 
