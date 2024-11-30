@@ -239,6 +239,9 @@ type Category implements DatabaseIdentifier & HierarchicalNode & HierarchicalTer
     where: CategoryToPostConnectionWhereArgs
   ): CategoryToPostConnection
 
+  """The Yoast SEO data of the カテゴリー taxonomy."""
+  seo: TaxonomySEO
+
   """An alphanumeric identifier for the object unique to its type."""
   slug: String
 
@@ -294,6 +297,9 @@ interface CategoryConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -348,6 +354,9 @@ type CategoryToAncestorsCategoryConnectionPageInfo implements CategoryConnection
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -383,6 +392,9 @@ type CategoryToCategoryConnectionPageInfo implements CategoryConnectionPageInfo 
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -508,6 +520,9 @@ type CategoryToContentNodeConnectionPageInfo implements ContentNodeConnectionPag
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -615,6 +630,9 @@ type CategoryToPostConnectionPageInfo implements PageInfo & PostConnectionPageIn
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -940,6 +958,9 @@ interface CommentConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -1001,6 +1022,9 @@ type CommentToCommentConnectionPageInfo implements CommentConnectionPageInfo & P
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -1476,6 +1500,9 @@ interface ContentNode implements Node & UniformResourceIdentifiable {
   """Whether the object is a node in the preview state"""
   previewRevisionId: ID
 
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
   """
   The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
   """
@@ -1526,6 +1553,9 @@ interface ContentNodeConnectionPageInfo implements PageInfo & WPPageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -1611,6 +1641,9 @@ type ContentNodeToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConn
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -1648,6 +1681,9 @@ type ContentNodeToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStyles
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -1854,6 +1890,9 @@ interface ContentTypeConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -1912,6 +1951,9 @@ type ContentTypeToContentNodeConnectionPageInfo implements ContentNodeConnection
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -2011,6 +2053,9 @@ type ContentTypeToTaxonomyConnectionPageInfo implements PageInfo & TaxonomyConne
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -2421,8 +2466,16 @@ input CreateUserInput {
   """A string that contains the plain text password for the user."""
   password: String
 
+  """If true, this will refresh the users JWT secret."""
+  refreshJwtUserSecret: Boolean
+
   """The date the user registered. Format is Y-m-d H:i:s."""
   registered: String
+
+  """
+  If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets.
+  """
+  revokeJwtUserSecret: Boolean
 
   """
   A string for whether to enable the rich editor or not. False if not empty.
@@ -2880,6 +2933,9 @@ interface EnqueuedScriptConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -2976,6 +3032,9 @@ interface EnqueuedStylesheetConnectionPageInfo implements PageInfo & WPPageInfo 
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -3187,6 +3246,9 @@ interface HierarchicalContentNode implements ContentNode & DatabaseIdentifier & 
   """Whether the object is a node in the preview state"""
   previewRevisionId: ID
 
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
   """
   The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
   """
@@ -3239,6 +3301,9 @@ type HierarchicalContentNodeToContentNodeAncestorsConnectionPageInfo implements 
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -3344,6 +3409,9 @@ type HierarchicalContentNodeToContentNodeChildrenConnectionPageInfo implements C
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -3536,6 +3604,41 @@ interface HierarchicalTermNode implements DatabaseIdentifier & HierarchicalNode 
 
   """The unique resource identifier path"""
   uri: String
+}
+
+"""Input for the login mutation."""
+input LoginInput {
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """The plain-text password for the user logging in."""
+  password: String!
+
+  """
+  The username used for login. Typically a unique or email address depending on specific configuration
+  """
+  username: String!
+}
+
+"""The payload for the login mutation."""
+type LoginPayload {
+  """JWT Token that can be used in future requests for Authentication"""
+  authToken: String
+
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  refreshToken: String
+
+  """The user that was logged in"""
+  user: User
 }
 
 """File details for a Media Item"""
@@ -3819,6 +3922,9 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
   """Whether the object is a node in the preview state"""
   previewRevisionId: ID
 
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
   """The sizes attribute value for an image."""
   sizes(
     """Size of the MediaItem to calculate sizes with"""
@@ -3897,6 +4003,9 @@ interface MediaItemConnectionPageInfo implements PageInfo & WPPageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -4030,6 +4139,9 @@ type MediaItemToCommentConnectionPageInfo implements CommentConnectionPageInfo &
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -4244,6 +4356,9 @@ interface MenuConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -4373,6 +4488,9 @@ interface MenuItemConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -4427,7 +4545,7 @@ enum MenuItemNodeIdTypeEnum {
 }
 
 """Deprecated in favor of MenuItemLinkeable Interface"""
-union MenuItemObjectUnion = Category | Page | Post | PostFormat | Tag
+union MenuItemObjectUnion = Category | Page | Post | Tag
 
 """Connection between the MenuItem type and the Menu type"""
 type MenuItemToMenuConnectionEdge implements Edge & MenuConnectionEdge & OneToOneConnection {
@@ -4472,6 +4590,9 @@ type MenuItemToMenuItemConnectionPageInfo implements MenuItemConnectionPageInfo 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -4504,8 +4625,8 @@ type MenuItemToMenuItemLinkableConnectionEdge implements Edge & MenuItemLinkable
 
 """Registered menu locations"""
 enum MenuLocationEnum {
-  """Empty menu location"""
-  EMPTY
+  """Put the menu in the primary-menu location"""
+  PRIMARY_MENU
 }
 
 """
@@ -4561,6 +4682,9 @@ type MenuToMenuItemConnectionPageInfo implements MenuItemConnectionPageInfo & Pa
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -5031,6 +5155,9 @@ interface NodeWithTitle implements Node {
   """The globally unique ID for the object"""
   id: ID!
 
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
   """
   The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
   """
@@ -5361,6 +5488,9 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     where: PageToRevisionConnectionWhereArgs
   ): PageToRevisionConnection
 
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
   """
   The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
   """
@@ -5419,6 +5549,9 @@ interface PageConnectionPageInfo implements PageInfo & WPPageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -5482,6 +5615,9 @@ type PageToCommentConnectionPageInfo implements CommentConnectionPageInfo & Page
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -5628,6 +5764,9 @@ type PageToRevisionConnectionPageInfo implements PageConnectionPageInfo & PageIn
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -5773,6 +5912,9 @@ interface PluginConnectionPageInfo implements PageInfo & WPPageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -6102,6 +6244,9 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     where: PostToRevisionConnectionWhereArgs
   ): PostToRevisionConnection
 
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
   """
   The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
   """
@@ -6244,12 +6389,15 @@ interface PostConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
 
 """The postFormat type"""
-type PostFormat implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable {
+type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable {
   """Connection between the PostFormat type and the ContentNode type"""
   contentNodes(
     """
@@ -6371,6 +6519,9 @@ type PostFormat implements DatabaseIdentifier & MenuItemLinkable & Node & TermNo
     where: PostFormatToPostConnectionWhereArgs
   ): PostFormatToPostConnection
 
+  """The Yoast SEO data of the フォーマット taxonomy."""
+  seo: TaxonomySEO
+
   """An alphanumeric identifier for the object unique to its type."""
   slug: String
 
@@ -6426,6 +6577,9 @@ interface PostFormatConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -6479,6 +6633,9 @@ type PostFormatToContentNodeConnectionPageInfo implements ContentNodeConnectionP
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -6578,6 +6735,9 @@ type PostFormatToPostConnectionPageInfo implements PageInfo & PostConnectionPage
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -6819,6 +6979,9 @@ input PostPostFormatsNodeInput {
 
 """The status of the object."""
 enum PostStatusEnum {
+  """Objects with the acf-disabled status"""
+  ACF_DISABLED
+
   """Objects with the auto-draft status"""
   AUTO_DRAFT
 
@@ -6909,6 +7072,9 @@ type PostToCategoryConnectionEdge implements CategoryConnectionEdge & Edge {
   """A cursor for use in pagination"""
   cursor: String
 
+  """The Yoast SEO Primary category"""
+  isPrimary: Boolean
+
   """The item at the end of the edge"""
   node: Category!
 }
@@ -6923,6 +7089,9 @@ type PostToCategoryConnectionPageInfo implements CategoryConnectionPageInfo & Pa
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -7047,6 +7216,9 @@ type PostToCommentConnectionPageInfo implements CommentConnectionPageInfo & Page
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -7193,6 +7365,9 @@ type PostToPostConnectionPageInfo implements PageInfo & PostConnectionPageInfo &
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -7214,6 +7389,9 @@ type PostToPostFormatConnectionEdge implements Edge & PostFormatConnectionEdge {
   """A cursor for use in pagination"""
   cursor: String
 
+  """The Yoast SEO Primary post_format"""
+  isPrimary: Boolean
+
   """The item at the end of the edge"""
   node: PostFormat!
 }
@@ -7228,6 +7406,9 @@ type PostToPostFormatConnectionPageInfo implements PageInfo & PostFormatConnecti
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -7364,6 +7545,9 @@ type PostToRevisionConnectionPageInfo implements PageInfo & PostConnectionPageIn
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -7493,6 +7677,9 @@ type PostToTagConnectionEdge implements Edge & TagConnectionEdge {
   """A cursor for use in pagination"""
   cursor: String
 
+  """The Yoast SEO Primary post_tag"""
+  isPrimary: Boolean
+
   """The item at the end of the edge"""
   node: Tag!
 }
@@ -7507,6 +7694,9 @@ type PostToTagConnectionPageInfo implements PageInfo & TagConnectionPageInfo & W
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -7631,6 +7821,9 @@ type PostToTermNodeConnectionPageInfo implements PageInfo & TermNodeConnectionPa
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -7805,6 +7998,84 @@ type PostTypeLabelDetails {
   viewItems: String
 }
 
+""""""
+type PostTypeSEO {
+  """"""
+  breadcrumbs: [SEOPostTypeBreadcrumbs]
+
+  """"""
+  canonical: String
+
+  """"""
+  cornerstone: Boolean
+
+  """"""
+  focuskw: String
+
+  """"""
+  fullHead: String
+
+  """"""
+  metaDesc: String
+
+  """"""
+  metaKeywords: String
+
+  """"""
+  metaRobotsNofollow: String
+
+  """"""
+  metaRobotsNoindex: String
+
+  """"""
+  opengraphAuthor: String
+
+  """"""
+  opengraphDescription: String
+
+  """"""
+  opengraphImage: MediaItem
+
+  """"""
+  opengraphModifiedTime: String
+
+  """"""
+  opengraphPublishedTime: String
+
+  """"""
+  opengraphPublisher: String
+
+  """"""
+  opengraphSiteName: String
+
+  """"""
+  opengraphTitle: String
+
+  """"""
+  opengraphType: String
+
+  """"""
+  opengraphUrl: String
+
+  """"""
+  readingTime: Float
+
+  """"""
+  schema: SEOPostTypeSchema
+
+  """"""
+  title: String
+
+  """"""
+  twitterDescription: String
+
+  """"""
+  twitterImage: MediaItem
+
+  """"""
+  twitterTitle: String
+}
+
 """Nodes that can be seen in a preview (unpublished) state."""
 interface Previewable {
   """Whether the object is a node in the preview state"""
@@ -7830,6 +8101,30 @@ type ReadingSettings {
 
   """フロントページに表示する内容"""
   showOnFront: String
+}
+
+"""Input for the refreshJwtAuthToken mutation."""
+input RefreshJwtAuthTokenInput {
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  A valid, previously issued JWT refresh token. If valid a new Auth token will be provided. If invalid, expired, revoked or otherwise invalid, a new AuthToken will not be provided.
+  """
+  jwtRefreshToken: String!
+}
+
+"""The payload for the refreshJwtAuthToken mutation."""
+type RefreshJwtAuthTokenPayload {
+  """JWT Token that can be used in future requests for Authentication"""
+  authToken: String
+
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
 }
 
 """Input for the registerUser mutation."""
@@ -7876,8 +8171,16 @@ input RegisterUserInput {
   """A string that contains the plain text password for the user."""
   password: String
 
+  """If true, this will refresh the users JWT secret."""
+  refreshJwtUserSecret: Boolean
+
   """The date the user registered. Format is Y-m-d H:i:s."""
   registered: String
+
+  """
+  If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets.
+  """
+  revokeJwtUserSecret: Boolean
 
   """
   A string for whether to enable the rich editor or not. False if not empty.
@@ -8076,6 +8379,18 @@ type RootMutation {
     """The count to increase"""
     count: Int
   ): Int
+
+  """Login a user. Request for an authToken and User details in response"""
+  login(
+    """Input for the login mutation"""
+    input: LoginInput!
+  ): LoginPayload
+
+  """Use a valid JWT Refresh token to retrieve a new JWT Auth Token"""
+  refreshJwtAuthToken(
+    """Input for the refreshJwtAuthToken mutation"""
+    input: RefreshJwtAuthTokenInput!
+  ): RefreshJwtAuthTokenPayload
 
   """The registerUser mutation"""
   registerUser(
@@ -8654,6 +8969,9 @@ type RootQuery {
     where: RootQueryToRevisionsConnectionWhereArgs
   ): RootQueryToRevisionsConnection
 
+  """Returns seo site data"""
+  seo: SEOConfig
+
   """A 0bject"""
   tag(
     """The globally unique identifier of the object."""
@@ -8871,6 +9189,9 @@ type RootQueryToCategoryConnectionPageInfo implements CategoryConnectionPageInfo
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -8994,6 +9315,9 @@ type RootQueryToCommentConnectionPageInfo implements CommentConnectionPageInfo &
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -9129,6 +9453,9 @@ type RootQueryToContentNodeConnectionPageInfo implements ContentNodeConnectionPa
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -9228,6 +9555,9 @@ type RootQueryToContentTypeConnectionPageInfo implements ContentTypeConnectionPa
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -9263,6 +9593,9 @@ type RootQueryToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConnec
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -9300,6 +9633,9 @@ type RootQueryToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStyleshe
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -9335,6 +9671,9 @@ type RootQueryToMediaItemConnectionPageInfo implements MediaItemConnectionPageIn
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -9446,6 +9785,9 @@ type RootQueryToMenuConnectionPageInfo implements MenuConnectionPageInfo & PageI
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -9493,6 +9835,9 @@ type RootQueryToMenuItemConnectionPageInfo implements MenuItemConnectionPageInfo
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -9544,6 +9889,9 @@ type RootQueryToPageConnectionPageInfo implements PageConnectionPageInfo & PageI
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -9655,6 +10003,9 @@ type RootQueryToPluginConnectionPageInfo implements PageInfo & PluginConnectionP
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -9702,6 +10053,9 @@ type RootQueryToPostConnectionPageInfo implements PageInfo & PostConnectionPageI
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -9847,6 +10201,9 @@ type RootQueryToPostFormatConnectionPageInfo implements PageInfo & PostFormatCon
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -9971,6 +10328,9 @@ type RootQueryToRevisionsConnectionPageInfo implements ContentNodeConnectionPage
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -10067,6 +10427,9 @@ type RootQueryToTagConnectionPageInfo implements PageInfo & TagConnectionPageInf
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -10192,6 +10555,9 @@ type RootQueryToTaxonomyConnectionPageInfo implements PageInfo & TaxonomyConnect
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -10227,6 +10593,9 @@ type RootQueryToTermNodeConnectionPageInfo implements PageInfo & TermNodeConnect
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -10355,6 +10724,9 @@ type RootQueryToThemeConnectionPageInfo implements PageInfo & ThemeConnectionPag
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -10390,6 +10762,9 @@ type RootQueryToUserConnectionPageInfo implements PageInfo & UserConnectionPageI
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -10495,8 +10870,509 @@ type RootQueryToUserRoleConnectionPageInfo implements PageInfo & UserRoleConnect
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
+}
+
+"""The Yoast SEO breadcrumb config"""
+type SEOBreadcrumbs {
+  """"""
+  archivePrefix: String
+
+  """"""
+  boldLast: Boolean
+
+  """"""
+  enabled: Boolean
+
+  """"""
+  homeText: String
+
+  """"""
+  notFoundText: String
+
+  """"""
+  prefix: String
+
+  """"""
+  searchPrefix: String
+
+  """"""
+  separator: String
+
+  """"""
+  showBlogPage: Boolean
+}
+
+"""Types of cards"""
+enum SEOCardType {
+  summary
+  summary_large_image
+}
+
+"""The Yoast SEO site level configuration data"""
+type SEOConfig {
+  """"""
+  breadcrumbs: SEOBreadcrumbs
+
+  """"""
+  contentTypes: SEOContentTypes
+
+  """"""
+  meta: SEOGlobalMeta
+
+  """"""
+  openGraph: SEOOpenGraph
+
+  """"""
+  redirects: [SEORedirect]
+
+  """"""
+  schema: SEOSchema
+
+  """"""
+  social: SEOSocial
+
+  """"""
+  webmaster: SEOWebmaster
+}
+
+"""The Yoast SEO search appearance content types fields"""
+type SEOContentType {
+  """"""
+  archive: SEOContentTypeArchive
+
+  """"""
+  metaDesc: String
+
+  """"""
+  metaRobotsNoindex: Boolean
+
+  """"""
+  schema: SEOPageInfoSchema
+
+  """"""
+  schemaType: String
+
+  """"""
+  title: String
+}
+
+"""The Yoast SEO search appearance content types fields"""
+type SEOContentTypeArchive {
+  """"""
+  archiveLink: String
+
+  """"""
+  breadcrumbTitle: String
+
+  """"""
+  fullHead: String
+
+  """"""
+  hasArchive: Boolean
+
+  """"""
+  metaDesc: String
+
+  """"""
+  metaRobotsFollow: String
+
+  """"""
+  metaRobotsIndex: String
+
+  """"""
+  metaRobotsNofollow: Boolean
+
+  """"""
+  metaRobotsNoindex: Boolean
+
+  """"""
+  title: String
+}
+
+"""The Yoast SEO search appearance content types"""
+type SEOContentTypes {
+  """"""
+  mediaItem: SEOContentType
+
+  """"""
+  page: SEOContentType
+
+  """"""
+  post: SEOContentType
+}
+
+"""The Yoast SEO meta data"""
+type SEOGlobalMeta {
+  """"""
+  author: SEOGlobalMetaAuthor
+
+  """"""
+  config: SEOGlobalMetaConfig
+
+  """"""
+  date: SEOGlobalMetaDate
+
+  """"""
+  homepage: SEOGlobalMetaHome
+
+  """"""
+  notFound: SEOGlobalMeta404
+}
+
+"""The Yoast SEO meta 404 data"""
+type SEOGlobalMeta404 {
+  """"""
+  breadcrumb: String
+
+  """"""
+  title: String
+}
+
+"""The Yoast SEO Author data"""
+type SEOGlobalMetaAuthor {
+  """"""
+  description: String
+
+  """"""
+  title: String
+}
+
+"""The Yoast SEO meta config data"""
+type SEOGlobalMetaConfig {
+  """"""
+  separator: String
+}
+
+"""The Yoast SEO Date data"""
+type SEOGlobalMetaDate {
+  """"""
+  description: String
+
+  """"""
+  title: String
+}
+
+"""The Yoast SEO homepage data"""
+type SEOGlobalMetaHome {
+  """"""
+  description: String
+
+  """"""
+  title: String
+}
+
+"""The Open Graph data"""
+type SEOOpenGraph {
+  """"""
+  defaultImage: MediaItem
+
+  """"""
+  frontPage: SEOOpenGraphFrontPage
+}
+
+"""The Open Graph Front page data"""
+type SEOOpenGraphFrontPage {
+  """"""
+  description: String
+
+  """"""
+  image: MediaItem
+
+  """"""
+  title: String
+}
+
+"""The Schema for post type"""
+type SEOPageInfoSchema {
+  """"""
+  raw: String
+}
+
+""""""
+type SEOPostTypeBreadcrumbs {
+  """"""
+  text: String
+
+  """"""
+  url: String
+}
+
+"""The page info SEO details"""
+type SEOPostTypePageInfo {
+  """"""
+  schema: SEOPageInfoSchema
+}
+
+"""The Schema types"""
+type SEOPostTypeSchema {
+  """"""
+  articleType: [String]
+
+  """"""
+  pageType: [String]
+
+  """"""
+  raw: String
+}
+
+"""The Yoast redirect data  (Yoast Premium only)"""
+type SEORedirect {
+  """"""
+  format: String
+
+  """"""
+  origin: String
+
+  """"""
+  target: String
+
+  """"""
+  type: Int
+}
+
+"""The Yoast SEO schema data"""
+type SEOSchema {
+  """"""
+  companyLogo: MediaItem
+
+  """"""
+  companyName: String
+
+  """"""
+  companyOrPerson: String
+
+  """"""
+  homeUrl: String
+
+  """"""
+  inLanguage: String
+
+  """"""
+  logo: MediaItem
+
+  """"""
+  personLogo: MediaItem
+
+  """"""
+  personName: String
+
+  """"""
+  siteName: String
+
+  """"""
+  siteUrl: String
+
+  """"""
+  wordpressSiteName: String
+}
+
+"""The Yoast SEO Social media links"""
+type SEOSocial {
+  """"""
+  facebook: SEOSocialFacebook
+
+  """"""
+  instagram: SEOSocialInstagram
+
+  """"""
+  linkedIn: SEOSocialLinkedIn
+
+  """"""
+  mySpace: SEOSocialMySpace
+
+  """"""
+  otherSocials: [String]
+
+  """"""
+  pinterest: SEOSocialPinterest
+
+  """"""
+  twitter: SEOSocialTwitter
+
+  """"""
+  wikipedia: SEOSocialWikipedia
+
+  """"""
+  youTube: SEOSocialYoutube
+}
+
+""""""
+type SEOSocialFacebook {
+  """"""
+  defaultImage: MediaItem
+
+  """"""
+  url: String
+}
+
+""""""
+type SEOSocialInstagram {
+  """"""
+  url: String
+}
+
+""""""
+type SEOSocialLinkedIn {
+  """"""
+  url: String
+}
+
+""""""
+type SEOSocialMySpace {
+  """"""
+  url: String
+}
+
+""""""
+type SEOSocialPinterest {
+  """"""
+  metaTag: String
+
+  """"""
+  url: String
+}
+
+""""""
+type SEOSocialTwitter {
+  """"""
+  cardType: SEOCardType
+
+  """"""
+  username: String
+}
+
+""""""
+type SEOSocialWikipedia {
+  """"""
+  url: String
+}
+
+""""""
+type SEOSocialYoutube {
+  """"""
+  url: String
+}
+
+"""The Schema types for Taxonomy"""
+type SEOTaxonomySchema {
+  """"""
+  raw: String
+}
+
+""""""
+type SEOUser {
+  """"""
+  breadcrumbTitle: String
+
+  """"""
+  canonical: String
+
+  """"""
+  fullHead: String
+
+  """"""
+  language: String
+
+  """"""
+  metaDesc: String
+
+  """"""
+  metaRobotsNofollow: String
+
+  """"""
+  metaRobotsNoindex: String
+
+  """"""
+  opengraphDescription: String
+
+  """"""
+  opengraphImage: MediaItem
+
+  """"""
+  opengraphTitle: String
+
+  """"""
+  region: String
+
+  """"""
+  schema: SEOUserSchema
+
+  """"""
+  social: SEOUserSocial
+
+  """"""
+  title: String
+
+  """"""
+  twitterDescription: String
+
+  """"""
+  twitterImage: MediaItem
+
+  """"""
+  twitterTitle: String
+}
+
+"""The Schema types for User"""
+type SEOUserSchema {
+  """"""
+  articleType: [String]
+
+  """"""
+  pageType: [String]
+
+  """"""
+  raw: String
+}
+
+""""""
+type SEOUserSocial {
+  """"""
+  facebook: String
+
+  """"""
+  instagram: String
+
+  """"""
+  linkedIn: String
+
+  """"""
+  mySpace: String
+
+  """"""
+  pinterest: String
+
+  """"""
+  soundCloud: String
+
+  """"""
+  twitter: String
+
+  """"""
+  wikipedia: String
+
+  """"""
+  youTube: String
+}
+
+"""The Yoast SEO  webmaster fields"""
+type SEOWebmaster {
+  """"""
+  baiduVerify: String
+
+  """"""
+  googleVerify: String
+
+  """"""
+  msVerify: String
+
+  """"""
+  yandexVerify: String
 }
 
 """The strategy to use when loading the script"""
@@ -10712,6 +11588,9 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     where: TagToPostConnectionWhereArgs
   ): TagToPostConnection
 
+  """The Yoast SEO data of the タグ taxonomy."""
+  seo: TaxonomySEO
+
   """An alphanumeric identifier for the object unique to its type."""
   slug: String
 
@@ -10770,6 +11649,9 @@ interface TagConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -10823,6 +11705,9 @@ type TagToContentNodeConnectionPageInfo implements ContentNodeConnectionPageInfo
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -10920,6 +11805,9 @@ type TagToPostConnectionPageInfo implements PageInfo & PostConnectionPageInfo & 
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -11192,6 +12080,9 @@ interface TaxonomyConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -11217,6 +12108,81 @@ enum TaxonomyIdTypeEnum {
 
   """The name of the taxonomy"""
   NAME
+}
+
+""""""
+type TaxonomySEO {
+  """"""
+  breadcrumbs: [SEOPostTypeBreadcrumbs]
+
+  """"""
+  canonical: String
+
+  """"""
+  cornerstone: Boolean
+
+  """"""
+  focuskw: String
+
+  """"""
+  fullHead: String
+
+  """"""
+  metaDesc: String
+
+  """"""
+  metaKeywords: String
+
+  """"""
+  metaRobotsNofollow: String
+
+  """"""
+  metaRobotsNoindex: String
+
+  """"""
+  opengraphAuthor: String
+
+  """"""
+  opengraphDescription: String
+
+  """"""
+  opengraphImage: MediaItem
+
+  """"""
+  opengraphModifiedTime: String
+
+  """"""
+  opengraphPublishedTime: String
+
+  """"""
+  opengraphPublisher: String
+
+  """"""
+  opengraphSiteName: String
+
+  """"""
+  opengraphTitle: String
+
+  """"""
+  opengraphType: String
+
+  """"""
+  opengraphUrl: String
+
+  """"""
+  schema: SEOTaxonomySchema
+
+  """"""
+  title: String
+
+  """"""
+  twitterDescription: String
+
+  """"""
+  twitterImage: MediaItem
+
+  """"""
+  twitterTitle: String
 }
 
 """Connection between the Taxonomy type and the ContentType type"""
@@ -11250,6 +12216,9 @@ type TaxonomyToContentTypeConnectionPageInfo implements ContentTypeConnectionPag
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -11287,14 +12256,11 @@ type TaxonomyToTermNodeConnectionPageInfo implements PageInfo & TermNodeConnecti
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
-}
-
-"""The template assigned to the node"""
-type Template_PageNoTitle implements ContentTemplate {
-  """The name of the template"""
-  templateName: String
 }
 
 """
@@ -11427,6 +12393,9 @@ interface TermNodeConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -11483,6 +12452,9 @@ type TermNodeToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConnect
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -11518,6 +12490,9 @@ type TermNodeToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStyleshee
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -11636,6 +12611,9 @@ interface ThemeConnectionPageInfo implements PageInfo & WPPageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -12167,8 +13145,16 @@ input UpdateUserInput {
   """A string that contains the plain text password for the user."""
   password: String
 
+  """If true, this will refresh the users JWT secret."""
+  refreshJwtUserSecret: Boolean
+
   """The date the user registered. Format is Y-m-d H:i:s."""
   registered: String
+
+  """
+  If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets.
+  """
+  revokeJwtUserSecret: Boolean
 
   """
   A string for whether to enable the rich editor or not. False if not empty.
@@ -12317,6 +13303,11 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
   """Whether the node represents the front page."""
   isFrontPage: Boolean!
 
+  """
+  Whether the JWT User secret has been revoked. If the secret has been revoked, auth tokens will not be issued until an admin, or user with proper capabilities re-issues a secret for the user.
+  """
+  isJwtAuthSecretRevoked: Boolean!
+
   """Whether  the node represents the blog page."""
   isPostsPage: Boolean!
 
@@ -12325,6 +13316,26 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
 
   """Whether the node is a Term"""
   isTermNode: Boolean!
+
+  """
+  The expiration for the JWT Token for the user. If not set custom for the user, it will use the default sitewide expiration setting
+  """
+  jwtAuthExpiration: String
+
+  """
+  A JWT token that can be used in future requests for authentication/authorization
+  """
+  jwtAuthToken: String
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  jwtRefreshToken: String
+
+  """
+  A unique secret tied to the users JWT token that can be revoked or refreshed. Revoking the secret prevents JWT tokens from being issued to the user. Refreshing the token invalidates previously issued tokens, but allows new tokens to be issued.
+  """
+  jwtUserSecret: String
 
   """
   Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property.
@@ -12461,6 +13472,9 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
     last: Int
   ): UserToUserRoleConnection
 
+  """The Yoast SEO data of a user"""
+  seo: SEOUser
+
   """
   Whether the Toolbar should be displayed when the user is viewing the site.
   """
@@ -12521,6 +13535,9 @@ interface UserConnectionPageInfo implements PageInfo & WPPageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -12603,6 +13620,9 @@ interface UserRoleConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -12662,6 +13682,9 @@ type UserToCommentConnectionPageInfo implements CommentConnectionPageInfo & Page
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -12797,6 +13820,9 @@ type UserToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConnectionP
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -12833,6 +13859,9 @@ type UserToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStylesheetCon
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -12868,6 +13897,9 @@ type UserToMediaItemConnectionPageInfo implements MediaItemConnectionPageInfo & 
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -12979,6 +14011,9 @@ type UserToPageConnectionPageInfo implements PageConnectionPageInfo & PageInfo &
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -13088,6 +14123,9 @@ type UserToPostConnectionPageInfo implements PageInfo & PostConnectionPageInfo &
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
@@ -13233,6 +14271,9 @@ type UserToRevisionsConnectionPageInfo implements ContentNodeConnectionPageInfo 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -13330,6 +14371,9 @@ type UserToUserRoleConnectionPageInfo implements PageInfo & UserRoleConnectionPa
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 }
@@ -13398,6 +14442,9 @@ interface WPPageInfo implements PageInfo {
 
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
