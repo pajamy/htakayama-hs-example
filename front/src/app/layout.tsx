@@ -4,6 +4,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import '@unocss/reset/tailwind.css'
 import "@/app/globals.css";
 
+import Header from "@/components/Globals/Header/Header";
 import Navigation from "@/components/Globals/Navigation/Navigation";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
 
@@ -25,7 +26,7 @@ export default async function RootLayout({
     <html lang="ja">
       <body className={`${notoSansJP.variable} antialiased`}>
         {isEnabled && <PreviewNotice />}
-        <Navigation />
+        <Header />
         {children}
       </body>
     </html>
