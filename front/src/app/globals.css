@@ -1,21 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --green: #87E293;
+  --deep-green: #41924B;
+  --light-green: #AFEAAA;
+  --orange: #FE8402;
+  --charcoal: #333333;
+  --black: rgba(36, 49, 60, 0.8);
+  --white: #F9F9F9;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-noto-sans-jp: var(--font-noto-sans-jp);
+
+  --background: var(--white);
+  --foreground: var(--charcoal);
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-sans-jp);
 }
