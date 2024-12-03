@@ -5,7 +5,7 @@ import '@unocss/reset/tailwind.css'
 import "@/app/globals.css";
 
 import Header from "@/components/Globals/Header/Header";
-import Navigation from "@/components/Globals/Navigation/Navigation";
+import Footer from "@/components/Globals/Footer/Footer";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
 
 const notoSansJP = Noto_Sans_JP({
@@ -28,6 +28,7 @@ export default async function RootLayout({
         {isEnabled && <PreviewNotice />}
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
