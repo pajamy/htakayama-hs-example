@@ -5,7 +5,9 @@
 }
 
 .site-header {
-  position: sticky;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
   top: 0;
   background: rgba(249, 249, 249, 0.9);
 }
